@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yellowstone Adventure Tours</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Raleway:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "yellowstone-blue": "#1e3a5f",
+              "geyser-blue": "#4a86b8",
+              "hotspring-yellow": "#f9a825",
+              "canyon-orange": "#e65100",
+              "pine-green": "#2e7d32",
+            },
+            fontFamily: {
+              playfair: ["Playfair Display", "serif"],
+              raleway: ["Raleway", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .navbar {
+          transition: all 0.4s ease;
+          backdrop-filter: blur(10px);
+          color: aliceblue !important;
+      }
+      .nav-scrolled {
+          background: rgba(73, 113, 165, 0.95);
+          backdrop-filter: blur(10px);
+          color: aliceblue !important;
+      }
+      .hero-image {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+              url('1491581132559.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.testimonial-bg {
+  background: linear-gradient(rgba(30, 58, 95, 0.85), rgba(30, 58, 95, 0.85)),
+              url('images.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+      .card-hover {
+          transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+      .feature-icon {
+          transition: all 0.3s ease;
+      }
+      .feature-card:hover .feature-icon {
+          transform: scale(1.2);
+          color: #f9a825;
+      }
+      .animate-float {
+          animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+          100% { transform: translateY(0px); }
+      }
+      .parallax {
+          background-attachment: fixed;
+      }
+    </style>
+  </head>
+  <body class="font-raleway bg-white text-gray-800">
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 py-4 px-4 md:px-8">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <div
+            class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center"
+          >
+            <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
+          </div>
+          <span class="text-2xl font-bold text-yellowstone-blue">
+            Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+          </span>
+        </div>
+
+        <div class="hidden md:flex space-x-8">
+          <a
+            href="#"
+            class="font-semibold hover:text-geyser-blue transition"
+            >Home</a
+          >
+          <a
+            href="#"
+            class=" font-semibold hover:text-geyser-blue transition"
+            >Tours</a
+          >
+          <a
+            href="#"
+            class=" font-semibold hover:text-geyser-blue transition"
+            >Destinations</a
+          >
+          <a
+            href="about.html"
+            class="font-semibold hover:text-geyser-blue transition"
+            >About</a
+          >
+          <a
+            href="#"
+            class=" font-semibold hover:text-geyser-blue transition"
+            >Contact</a
+          >
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button
+            class="hidden md:block bg-hotspring-yellow text-yellowstone-blue font-bold py-2 px-6 rounded-full hover:bg-canyon-orange transition"
+        
+            >
+            Book Now
+          </button>
+          <button class="md:hidden text-yellowstone-blue">
+            <i href="tourDetails.html" class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-image pt-32 pb-24 md:pt-48 md:pb-36">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="max-w-2xl">
+          <h1
+            class="font-playfair text-4xl md:text-6xl font-bold text-white leading-tight mb-6"
+          >
+            Discover the
+            <span class="text-hotspring-yellow">Wild Heart</span> of America
+          </h1>
+          <p class="text-xl text-white mb-10 opacity-90">
+            Experience the breathtaking beauty of Yellowstone and the American
+            West with our expertly guided adventures.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <button
+              class="bg-hotspring-yellow text-yellowstone-blue font-bold py-3 px-8 rounded-full text-lg hover:bg-canyon-orange transition"
+            >
+              Explore Tours
+            </button>
+            <button
+              class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-white hover:text-yellowstone-blue transition"
+            >
+              <i class="fas fa-play mr-2"></i>Watch Video
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="text-center mb-16">
+          <h2
+            class="font-playfair text-3xl md:text-4xl font-bold text-yellowstone-blue mb-4"
+          >
+            Why Choose Yellowstone Adventures
+          </h2>
+          <div class="w-24 h-1 bg-hotspring-yellow mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div
+            class="feature-card bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition"
+          >
+            <div
+              class="feature-icon w-20 h-20 rounded-full bg-yellowstone-blue flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-map-marked-alt text-geyser-blue text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-yellowstone-blue mb-3">
+              Expert Guides
+            </h3>
+            <p class="text-gray-600">
+              Our local guides have over 20 years of experience exploring
+              Yellowstone's hidden gems.
+            </p>
+          </div>
+
+          <div
+            class="feature-card bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition"
+          >
+            <div
+              class="feature-icon w-20 h-20 rounded-full bg-yellowstone-blue flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-shield-alt text-geyser-blue text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-yellowstone-blue mb-3">
+              Safety First
+            </h3>
+            <p class="text-gray-600">
+              We prioritize your safety with top-quality equipment and certified
+              wilderness first responders.
+            </p>
+          </div>
+
+          <div
+            class="feature-card bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition"
+          >
+            <div
+              class="feature-icon w-20 h-20 rounded-full bg-yellowstone-blue flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-leaf text-geyser-blue text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-yellowstone-blue mb-3">
+              Eco-Friendly
+            </h3>
+            <p class="text-gray-600">
+              Committed to sustainable tourism and preserving nature for future
+              generations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Tours -->
+    <section class="py-20">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="text-center mb-16">
+          <h2
+            class="font-playfair text-3xl md:text-4xl font-bold text-yellowstone-blue mb-4"
+          >
+            Our Signature Adventures
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Experience the best of the American wilderness with our carefully
+            crafted tours
+          </p>
+          <div class="w-24 h-1 bg-hotspring-yellow mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-xl"
+          >
+            <div class="md:flex">
+              <div class="md:w-2/5 relative">
+                <img
+                  src="images (1).jpeg"
+                  alt="Yellowstone"
+                  class="w-full h-64 md:h-full object-cover"
+                />
+                <div
+                  class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
+                >
+                  5 Days
+                </div>
+              </div>
+              <div class="md:w-3/5 p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3
+                    class="font-playfair text-2xl font-bold text-yellowstone-blue"
+                  >
+                    Yellowstone Explorer
+                  </h3>
+                  <span class="text-xl font-bold text-canyon-orange">
+                    $1,299
+                  </span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  Immerse yourself in the geothermal wonders and wildlife of
+                  America's first national park.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-hiking mr-1"></i> Hiking
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-camera mr-1"></i> Photography
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-campground mr-1"></i> Camping
+                  </span>
+                </div>
+                <button
+                  class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
+                >
+             <a href="tourDetails.html"> Book This Tour</a>    
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-xl"
+          >
+            <div class="md:flex">
+              <div class="md:w-2/5 relative">
+                <img
+                  src="/Tour/2.jpeg"
+                  alt="Grand Teton"
+                  class="w-full h-64 md:h-full object-cover"
+                />
+                <div
+                  class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
+                >
+                  7 Days
+                </div>
+              </div>
+              <div class="md:w-3/5 p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3
+                    class="font-playfair text-2xl font-bold text-yellowstone-blue"
+                  >
+                    Teton Wilderness Trek
+                  </h3>
+                  <span class="text-xl font-bold text-canyon-orange">
+                    $1,799
+                  </span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  Journey through the majestic Teton Range with experienced
+                  mountaineering guides.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-mountain mr-1"></i> Mountaineering
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-water mr-1"></i> Kayaking
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-hotel mr-1"></i> Lodge Stays
+                  </span>
+                </div>
+                <button
+                  class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
+                >
+                <a href="tourDetails.html"> Book This Tour</a>    
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-xl"
+          >
+            <div class="md:flex">
+              <div class="md:w-2/5 relative">
+                <img
+                  src="/Tour/Yellowstone-Norris-Geyser-Basin-min-1024x683.jpg"
+                  alt="Rocky Mountains"
+                  class="w-full h-64 md:h-full object-cover"
+                />
+                <div
+                  class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
+                >
+                  10 Days
+                </div>
+              </div>
+              <div class="md:w-3/5 p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3
+                    class="font-playfair text-2xl font-bold text-yellowstone-blue"
+                  >
+                    Rockies Expedition
+                  </h3>
+                  <span class="text-xl font-bold text-canyon-orange">
+                    $2,499
+                  </span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  An epic journey through the Rocky Mountains from Yellowstone
+                  to Glacier National Park.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-car mr-1"></i> Scenic Drives
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-binoculars mr-1"></i> Wildlife
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-utensils mr-1"></i> Local Cuisine
+                  </span>
+                </div>
+                <button
+                  class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
+                >
+                <a href="tourDetails.html"> Book This Tour</a>  
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-xl"
+          >
+            <div class="md:flex">
+              <div class="md:w-2/5 relative">
+                <img
+                  src="images (2).jpeg"
+                  alt="Cowboy"
+                  class="w-full h-64 md:h-full object-cover"
+                />
+                <div
+                  class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
+                >
+                  3 Days
+                </div>
+              </div>
+              <div class="md:w-3/5 p-6">
+                <div class="flex justify-between items-start mb-3">
+                  <h3
+                    class="font-playfair text-2xl font-bold text-yellowstone-blue"
+                  >
+                    Cowboy Experience
+                  </h3>
+                  <span class="text-xl font-bold text-canyon-orange">
+                    $899
+                  </span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  Live the cowboy life with horseback riding, cattle drives, and
+                  authentic ranch stays.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-horse mr-1"></i> Horseback
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-guitar mr-1"></i> Campfire
+                  </span>
+                  <span
+                    class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm"
+                  >
+                    <i class="fas fa-warehouse mr-1"></i> Ranch Stay
+                  </span>
+                </div>
+                <button
+                  class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
+                >
+                <a href="tourDetails.html"> Book This Tour</a>  
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-yellowstone-blue text-white">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="text-4xl md:text-5xl font-bold mb-2 animate-float">
+              32+
+            </div>
+            <div class="text-geyser-blue font-semibold">Adventure Tours</div>
+          </div>
+          <div>
+            <div
+              class="text-4xl md:text-5xl font-bold mb-2 animate-float"
+              style="animation-delay: 0.2s"
+            >
+              15K+
+            </div>
+            <div class="text-geyser-blue font-semibold">Happy Travelers</div>
+          </div>
+          <div>
+            <div
+              class="text-4xl md:text-5xl font-bold mb-2 animate-float"
+              style="animation-delay: 0.4s"
+            >
+              87
+            </div>
+            <div class="text-geyser-blue font-semibold">Expert Guides</div>
+          </div>
+          <div>
+            <div
+              class="text-4xl md:text-5xl font-bold mb-2 animate-float"
+              style="animation-delay: 0.6s"
+            >
+              28
+            </div>
+            <div class="text-geyser-blue font-semibold">Years Experience</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonial-bg py-20 text-white">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="text-center mb-16">
+          <h2 class="font-playfair text-3xl md:text-4xl font-bold mb-4">
+            Adventurer Stories
+          </h2>
+          <p class="max-w-2xl mx-auto opacity-80">
+            Hear from travelers who've experienced the magic of Yellowstone
+          </p>
+          <div class="w-24 h-1 bg-hotspring-yellow mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white bg-opacity-10 p-8 rounded-2xl backdrop-blur-md">
+            <div class="text-hotspring-yellow text-2xl mb-4">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="mb-6 italic">
+              "The Yellowstone tour changed my perspective on nature. Our
+              guide's knowledge of geothermal features and wildlife made the
+              experience truly unforgettable."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://randomuser.me/api/portraits/women/44.jpg"
+                alt="Sarah"
+                class="w-12 h-12 rounded-full mr-4 border-2 border-hotspring-yellow"
+              />
+              <div>
+                <div class="font-bold">Sarah Johnson</div>
+                <div class="text-geyser-blue text-sm">Yellowstone Explorer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white bg-opacity-10 p-8 rounded-2xl backdrop-blur-md">
+            <div class="text-hotspring-yellow text-2xl mb-4">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="mb-6 italic">
+              "Riding through the Grand Tetons on horseback felt like stepping
+              back into the Old West. The scenery was breathtaking and the
+              guides were exceptional."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="Michael"
+                class="w-12 h-12 rounded-full mr-4 border-2 border-hotspring-yellow"
+              />
+              <div>
+                <div class="font-bold">Michael Chen</div>
+                <div class="text-geyser-blue text-sm">Teton Trail Rider</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white bg-opacity-10 p-8 rounded-2xl backdrop-blur-md">
+            <div class="text-hotspring-yellow text-2xl mb-4">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="mb-6 italic">
+              "The Rocky Mountain expedition pushed me beyond my comfort zone in
+              the best way possible. I returned home with a renewed sense of
+              adventure."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://randomuser.me/api/portraits/women/68.jpg"
+                alt="Emily"
+                class="w-12 h-12 rounded-full mr-4 border-2 border-hotspring-yellow"
+              />
+              <div>
+                <div class="font-bold">Emily Rodriguez</div>
+                <div class="text-geyser-blue text-sm">
+                  Rocky Mountain Trekker
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-50">
+      <div
+        class="max-w-5xl mx-auto bg-yellowstone-blue rounded-3xl overflow-hidden shadow-2xl"
+      >
+        <div class="md:flex">
+          <div
+            class="md:w-2/5 bg-cover bg-center hidden md:block parallax"
+            style="
+              background-image: url('Yellowstone-Norris-Geyser-Basin-min-1024x683.jpg');
+            "
+          ></div>
+          <div class="md:w-3/5 p-10 text-center">
+            <h3 class="font-playfair text-3xl font-bold text-white mb-4">
+              Ready for Your Adventure?
+            </h3>
+            <p class="text-geyser-blue mb-8">
+              Join thousands of travelers who've discovered the transformative
+              power of America's wilderness
+            </p>
+
+            <form class="mb-6">
+              <div class="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  class="flex-grow py-4 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-hotspring-yellow"
+                />
+                <button
+                  class="bg-hotspring-yellow text-yellowstone-blue font-bold py-4 px-8 rounded-full hover:bg-canyon-orange transition whitespace-nowrap"
+                >
+                  Subscribe Now
+                </button>
+              </div>
+            </form>
+
+            <div class="flex justify-center space-x-4">
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-instagram"></i>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-twitter"></i>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-youtube"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-yellowstone-blue text-white pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          <div>
+            <div class="flex items-center space-x-2 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center"
+              >
+                <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
+              </div>
+              <span class="text-2xl font-bold">
+                Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+              </span>
+            </div>
+            <p class="text-geyser-blue mb-6">
+              Guiding authentic adventures in America's most spectacular
+              wilderness areas since 1995.
+            </p>
+            <div class="flex space-x-4">
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-instagram"></i>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-twitter"></i>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+              >
+                <i class="fab fa-youtube"></i>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold mb-6">Destinations</h4>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Yellowstone National Park</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Grand Teton National Park</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Glacier National Park</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Rocky Mountains</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Grand Canyon</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold mb-6">Adventure Types</h4>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Hiking Expeditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Horseback Riding</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Wildlife Safaris</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Photography Tours</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-geyser-blue hover:text-hotspring-yellow transition"
+                  >Winter Adventures</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold mb-6">Contact Us</h4>
+            <ul class="space-y-4 text-geyser-blue">
+              <li class="flex items-start">
+                <i
+                  class="fas fa-map-marker-alt mt-1 mr-3 text-hotspring-yellow"
+                ></i>
+                <span>123 Adventure Way, Jackson, WY 83001</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-phone mt-1 mr-3 text-hotspring-yellow"></i>
+                <span>(307) 555-1234</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-envelope mt-1 mr-3 text-hotspring-yellow"></i>
+                <span>info@yellowstoneadventures.com</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-clock mt-1 mr-3 text-hotspring-yellow"></i>
+                <span>Mon-Fri: 9AM-6PM | Sat: 10AM-4PM</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="pt-8 border-t border-geyser-blue border-opacity-20 text-center text-geyser-blue text-sm"
+        >
+          <p>
+            &copy; 2023 Yellowstone Adventures. All rights reserved. Experience
+            the spirit of America.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("nav-scrolled");
+          navbar.classList.add("py-3");
+          navbar.classList.remove("py-4");
+        } else {
+          navbar.classList.remove("nav-scrolled");
+          navbar.classList.remove("py-3");
+          navbar.classList.add("py-4");
+        }
+      });
+
+      // Initialize the navbar state
+      window.dispatchEvent(new Event("scroll"));
+    </script>
+  </body>
+</html>

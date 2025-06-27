@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellowstone Explorer - Tour Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "yellowstone-blue": "#1e3a5f",
+                        "geyser-blue": "#4a86b8",
+                        "hotspring-yellow": "#f9a825",
+                        "canyon-orange": "#e65100",
+                        "pine-green": "#2e7d32",
+                    },
+                    fontFamily: {
+                        playfair: ["Playfair Display", "serif"],
+                        raleway: ["Raleway", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .navbar {
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            background: aliceblue !important;
+        }
+        .nav-scrolled {
+            backdrop-filter: blur(10px);
+        }
+        .hero-pattern {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48cGF0aCBmaWxsPSIjMWUzYTVmIiBvcGFjaXR5PSIwLjAzIiBkPSJNMzAgMTVjOC4yODQgMCAxNSA2LjcxNiAxNSAxNXMtNi43MTYgMTUtMTUgMTUtMTUtNi43MTYtMTUtMTUgNi43MTYtMTUgMTUtMTVtMC0xNUMxMy40MzMgMCAwIDEzLjQzMyAwIDMwczEzLjQzMyAzMCAzMCAzMCAzMC0xMy40MzMgMzAtMzAtMTMuNDMzLTMwLTMwLTMweiIvPjwvc3ZnPg==');
+        }
+        .tour-highlight {
+            transition: all 0.3s ease;
+        }
+        .tour-highlight:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .itinerary-day:hover .day-number {
+            background-color: #f9a825;
+        }
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 300px;
+            background-color: #e5e7eb;
+        }
+        .booking-card {
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .gallery-main {
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-main {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .review-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer.open {
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body class="font-raleway bg-gray-50">
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 py-4 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center">
+                    <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold text-yellowstone-blue">
+                    Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+                </span>
+            </div>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="tour.html" class="font-semibold hover:text-geyser-blue transition">Home</a>
+                <a href="#" class="font-semibold hover:text-geyser-blue transition">Tours</a>
+                <a href="#" class="font-semibold hover:text-geyser-blue transition">Destinations</a>
+                <a href="#" class="font-semibold hover:text-geyser-blue transition">About</a>
+                <a href="#" class="font-semibold hover:text-geyser-blue transition">Contact</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button class="hidden md:block bg-hotspring-yellow text-yellowstone-blue font-bold py-2 px-6 rounded-full hover:bg-canyon-orange transition">
+                    Book Now
+                </button>
+                <button id="mobileMenuButton" class="md:hidden text-yellowstone-blue">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-40 bg-yellowstone-blue text-white md:hidden">
+        <div class="flex justify-between items-center p-6 border-b border-geyser-blue border-opacity-20">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center">
+                    <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold">
+                    Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+                </span>
+            </div>
+            <button id="closeMobileMenu" class="text-white">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6 space-y-6">
+            <a href="tour.html" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Home</a>
+            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Tours</a>
+            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Destinations</a>
+            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">About</a>
+            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Contact</a>
+            <button class="w-full bg-hotspring-yellow text-yellowstone-blue font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition mt-4">
+                Book Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="relative bg-yellowstone-blue">
+        <div class="absolute inset-0 hero-pattern opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-20 relative">
+            <div class="md:flex items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <div class="inline-block bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full mb-4">
+                        5 Days
+                    </div>
+                    <h1 class="font-playfair text-4xl md:text-5xl font-bold text-white mb-4">
+                        Yellowstone Explorer
+                    </h1>
+                    <p class="text-xl text-gray-200 mb-6 max-w-2xl">
+                        Immerse yourself in the geothermal wonders and wildlife of America's first national park.
+                    </p>
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="flex items-center text-white">
+                            <i class="fas fa-star text-hotspring-yellow mr-1"></i>
+                            <span class="font-bold">4.9</span>
+                            <span class="text-gray-300 ml-1">(128 reviews)</span>
+                        </div>
+                        <div class="flex items-center text-white">
+                            <i class="fas fa-users mr-2"></i>
+                            <span>Small Groups (Max 12)</span>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-hotspring-yellow mb-6">
+                        $1,299 <span class="text-lg text-gray-300">per person</span>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="bg-hotspring-yellow text-yellowstone-blue font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition">
+                            Book This Tour
+                        </button>
+                        <button id="pdfButton" class="bg-white text-yellowstone-blue font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
+                            <i class="fas fa-download mr-2"></i> Itinerary PDF
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="images (2).jpeg" alt="Yellowstone" class="w-full h-96 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <div class="flex flex-col lg:flex-row gap-10">
+            <!-- Left Content -->
+            <div class="lg:w-2/3">
+                <!-- Overview -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-10">
+                    <h2 class="font-playfair text-3xl font-bold text-yellowstone-blue mb-6">
+                        Tour Overview
+                    </h2>
+                    <p class="text-gray-700 mb-6">
+                        Discover the magic of Yellowstone National Park on this 5-day immersive adventure. Experience the world's largest collection of geysers, including the iconic Old Faithful. Witness breathtaking canyons, pristine lakes, and abundant wildlife including bison, elk, and bears in their natural habitat.
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        Our expert naturalist guides will lead you through the park's most spectacular landscapes while sharing fascinating insights about geology, ecology, and history. This tour combines comfortable accommodations with authentic wilderness experiences.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                        <div class="tour-highlight bg-geyser-blue bg-opacity-10 rounded-xl p-5 text-center">
+                            <div class="text-geyser-blue text-3xl mb-2">
+                                <i class="fas fa-hiking"></i>
+                            </div>
+                            <h3 class="font-bold text-yellowstone-blue mb-1">Activity Level</h3>
+                            <p class="text-gray-600">Moderate</p>
+                        </div>
+                        <div class="tour-highlight bg-geyser-blue bg-opacity-10 rounded-xl p-5 text-center">
+                            <div class="text-geyser-blue text-3xl mb-2">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <h3 class="font-bold text-yellowstone-blue mb-1">Group Size</h3>
+                            <p class="text-gray-600">6-12 Travelers</p>
+                        </div>
+                        <div class="tour-highlight bg-geyser-blue bg-opacity-10 rounded-xl p-5 text-center">
+                            <div class="text-geyser-blue text-3xl mb-2">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h3 class="font-bold text-yellowstone-blue mb-1">Season</h3>
+                            <p class="text-gray-600">May - October</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Itinerary -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-10">
+                    <h2 class="font-playfair text-3xl font-bold text-yellowstone-blue mb-6">
+                        Daily Itinerary
+                    </h2>
+                    
+                    <div class="space-y-8">
+                        <!-- Day 1 -->
+                        <div class="itinerary-day border-l-4 border-hotspring-yellow pl-6 py-2">
+                            <div class="flex items-center mb-4">
+                                <div class="day-number flex-shrink-0 w-12 h-12 rounded-full bg-yellowstone-blue text-white flex items-center justify-center font-bold text-lg mr-4">
+                                    1
+                                </div>
+                                <h3 class="font-playfair text-xl font-bold text-yellowstone-blue">
+                                    Arrival & Grand Canyon of Yellowstone
+                                </h3>
+                            </div>
+                            <div class="ml-16">
+                                <p class="text-gray-700 mb-4">
+                                    Arrive at Yellowstone and meet your guide. After lunch, we'll head to the Grand Canyon of Yellowstone to witness the spectacular Lower Falls. Enjoy a short hike along the canyon rim for breathtaking views.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-hiking mr-1"></i> Hiking: 2 miles
+                                    </span>
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-utensils mr-1"></i> Dinner included
+                                    </span>
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-bed mr-1"></i> Lodge at Canyon Village
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Day 2 -->
+                        <div class="itinerary-day border-l-4 border-hotspring-yellow pl-6 py-2">
+                            <div class="flex items-center mb-4">
+                                <div class="day-number flex-shrink-0 w-12 h-12 rounded-full bg-yellowstone-blue text-white flex items-center justify-center font-bold text-lg mr-4">
+                                    2
+                                </div>
+                                <h3 class="font-playfair text-xl font-bold text-yellowstone-blue">
+                                    Geyser Basins & Old Faithful
+                                </h3>
+                            </div>
+                            <div class="ml-16">
+                                <p class="text-gray-700 mb-4">
+                                    Explore the Upper Geyser Basin, home to the world-famous Old Faithful. Witness spectacular eruptions and colorful hot springs. After lunch, we'll hike to Solitary Geyser and enjoy the scenic Firehole River.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-hiking mr-1"></i> Hiking: 4 miles
+                                    </span>
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-camera mr-1"></i> Photography Focus
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Day 3 -->
+                        <div class="itinerary-day border-l-4 border-hotspring-yellow pl-6 py-2">
+                            <div class="flex items-center mb-4">
+                                <div class="day-number flex-shrink-0 w-12 h-12 rounded-full bg-yellowstone-blue text-white flex items-center justify-center font-bold text-lg mr-4">
+                                    3
+                                </div>
+                                <h3 class="font-playfair text-xl font-bold text-yellowstone-blue">
+                                    Wildlife Safari & Yellowstone Lake
+                                </h3>
+                            </div>
+                            <div class="ml-16">
+                                <p class="text-gray-700 mb-4">
+                                    Early morning wildlife viewing in Hayden Valley. Spot bison, elk, and maybe wolves! Afternoon kayak adventure on Yellowstone Lake with stunning mountain views. Evening at leisure in Lake Village.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-binoculars mr-1"></i> Wildlife Viewing
+                                    </span>
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-water mr-1"></i> Kayaking
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Day 4 -->
+                        <div class="itinerary-day border-l-4 border-hotspring-yellow pl-6 py-2">
+                            <div class="flex items-center mb-4">
+                                <div class="day-number flex-shrink-0 w-12 h-12 rounded-full bg-yellowstone-blue text-white flex items-center justify-center font-bold text-lg mr-4">
+                                    4
+                                </div>
+                                <h3 class="font-playfair text-xl font-bold text-yellowstone-blue">
+                                    Mammoth Hot Springs & Lamar Valley
+                                </h3>
+                            </div>
+                            <div class="ml-16">
+                                <p class="text-gray-700 mb-4">
+                                    Explore the unique terraces of Mammoth Hot Springs. Afternoon wildlife safari in Lamar Valley, known as America's Serengeti. Look for bears, wolves, and herds of bison in this spectacular valley.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-car mr-1"></i> Scenic Drive
+                                    </span>
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-camera mr-1"></i> Wildlife Photography
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Day 5 -->
+                        <div class="itinerary-day border-l-4 border-hotspring-yellow pl-6 py-2">
+                            <div class="flex items-center mb-4">
+                                <div class="day-number flex-shrink-0 w-12 h-12 rounded-full bg-yellowstone-blue text-white flex items-center justify-center font-bold text-lg mr-4">
+                                    5
+                                </div>
+                                <h3 class="font-playfair text-xl font-bold text-yellowstone-blue">
+                                    Norris Geyser Basin & Departure
+                                </h3>
+                            </div>
+                            <div class="ml-16">
+                                <p class="text-gray-700 mb-4">
+                                    Visit the hottest and most dynamic thermal area in Yellowstone - Norris Geyser Basin. Enjoy a farewell lunch before departing with incredible memories of Yellowstone's wonders.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-hiking mr-1"></i> Hiking: 3 miles
+                                    </span>
+                                    <span class="bg-geyser-blue bg-opacity-20 text-geyser-blue py-1 px-3 rounded-full text-sm">
+                                        <i class="fas fa-utensils mr-1"></i> Lunch included
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-10">
+                    <h2 class="font-playfair text-3xl font-bold text-yellowstone-blue mb-6">
+                        Photo Gallery
+                    </h2>
+                    
+                    <div class="gallery-grid">
+                        <div class="gallery-main rounded-xl overflow-hidden">
+                            <img src="images.jpeg" alt="Yellowstone" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="images (2).jpeg" alt="Yellowstone" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="Screenshot_2025-06-27_180420-removebg-preview.png" alt="Yellowstone" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="1491581132559.jpeg" alt="Yellowstone" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="2.jpeg" alt="Yellowstone" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h2 class="font-playfair text-3xl font-bold text-yellowstone-blue mb-6">
+                        Tour Route Map
+                    </h2>
+                    <div class="map-container">
+                        <div class="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
+                            <div class="text-center p-6">
+                                <i class="fas fa-map-marked-alt text-geyser-blue text-5xl mb-4"></i>
+                                <h3 class="font-bold text-xl text-yellowstone-blue mb-2">Tour Route Map</h3>
+                                <p class="text-gray-600">Interactive map showing our journey through Yellowstone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Sidebar -->
+            <div class="lg:w-1/3">
+                <!-- Booking Card -->
+                <div class="booking-card bg-white rounded-2xl shadow-xl p-6 mb-8">
+                    <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue mb-6 text-center">
+                        Book This Tour
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-bold mb-2">Departure Date</label>
+                        <div class="relative">
+                            <select class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-geyser-blue focus:border-transparent">
+                                <option>June 15, 2025</option>
+                                <option>June 22, 2025</option>
+                                <option>June 29, 2025</option>
+                                <option>July 6, 2025</option>
+                                <option>July 13, 2025</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-bold mb-2">Travelers</label>
+                        <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                            <button class="px-4 py-3 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <div class="px-4 py-3 text-center w-16">
+                                2
+                            </div>
+                            <button class="px-4 py-3 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    209
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-bold mb-2">Accommodation</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="radio" id="standard" name="accommodation" class="mr-2" checked>
+                                <label for="standard" class="text-gray-700">Standard Lodging ($1,299)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="upgraded" name="accommodation" class="mr-2">
+                                <label for="upgraded" class="text-gray-700">Upgraded Lodging (+$200)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-700">2 Travelers x $1,299</span>
+                            <span class="font-bold">$2,598</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-700">Taxes & Fees</span>
+                            <span class="font-bold">$189</span>
+                        </div>
+                        <div class="flex justify-between items-center border-t border-gray-300 pt-3 mt-3">
+                            <span class="text-lg font-bold text-yellowstone-blue">Total</span>
+                            <span class="text-xl font-bold text-canyon-orange">$2,787</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-yellowstone-blue text-white py-4 rounded-lg font-bold hover:bg-geyser-blue transition text-lg">
+                        Proceed to Booking
+                    </button>
+                    <p class="text-center text-gray-500 mt-4 text-sm">
+                        Free cancellation up to 30 days before departure
+                    </p>
+                </div>
+                
+                <!-- Included/Excluded -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                    <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue mb-4">
+                        What's Included
+                    </h3>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+                            <span class="text-gray-700">4 nights lodge accommodation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+                            <span class="text-gray-700">All meals as per itinerary</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+                            <span class="text-gray-700">Expert naturalist guide</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+                            <span class="text-gray-700">All park entrance fees</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+                            <span class="text-gray-700">Transportation in comfortable van</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+                            <span class="text-gray-700">Kayak rental and safety gear</span>
+                        </li>
+                    </ul>
+                    
+                    <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue mb-4">
+                        Not Included
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+                            <span class="text-gray-700">Flights to/from Yellowstone</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+                            <span class="text-gray-700">Travel insurance</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+                            <span class="text-gray-700">Alcoholic beverages</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+                            <span class="text-gray-700">Guide gratuities</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Enhanced Testimonial Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue">
+                            Traveler Reviews
+                        </h3>
+                        <div class="flex items-center">
+                            <div class="text-hotspring-yellow text-xl mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="font-bold">4.9</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Review 1 -->
+                        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-geyser-blue to-yellowstone-blue">
+                                    SJ
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="font-bold text-lg">Sarah Johnson</h4>
+                                    <div class="flex items-center">
+                                        <div class="text-hotspring-yellow mr-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="text-gray-500 text-sm">Jun 12, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">
+                                "This tour exceeded all expectations! Our guide Mark was incredibly knowledgeable and made the experience unforgettable. We saw bears, wolves, and countless bison. The kayaking on Yellowstone Lake was a highlight."
+                            </p>
+                        </div>
+                        
+                        <!-- Review 2 -->
+                        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-hotspring-yellow to-canyon-orange">
+                                    MT
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="font-bold text-lg">Michael Thompson</h4>
+                                    <div class="flex items-center">
+                                        <div class="text-hotspring-yellow mr-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="text-gray-500 text-sm">May 28, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">
+                                "Perfect balance of activity and relaxation. The itinerary was well-planned, and the accommodations were comfortable. Seeing Old Faithful erupt at sunset was magical. Highly recommend this tour!"
+                            </p>
+                        </div>
+                        
+                        <!-- Review 3 -->
+                        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-pine-green to-geyser-blue">
+                                    ER
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="font-bold text-lg">Emily Rodriguez</h4>
+                                    <div class="flex items-center">
+                                        <div class="text-hotspring-yellow mr-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="text-gray-500 text-sm">May 15, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">
+                                "The wildlife viewing in Lamar Valley was incredible! We saw a pack of wolves hunting at dawn. The group size was perfect - small enough to feel personal but big enough to make friends. Will definitely book again!"
+                            </p>
+                        </div>
+                        
+                        <a href="#" class="inline-flex items-center justify-center w-full bg-geyser-blue text-white font-bold py-3 px-8 rounded-lg hover:bg-yellowstone-blue transition">
+                            View All 128 Reviews <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="max-w-4xl mx-auto px-4 md:px-8 py-16">
+        <h2 class="font-playfair text-3xl font-bold text-yellowstone-blue mb-2 text-center">
+            Frequently Asked Questions
+        </h2>
+        <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+            Everything you need to know about the Yellowstone Explorer tour
+        </p>
+        
+        <div class="space-y-4">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center cursor-pointer faq-question">
+                    <h3 class="font-bold text-lg text-yellowstone-blue">
+                        What is the fitness level required for this tour?
+                    </h3>
+                    <i class="fas fa-chevron-down text-geyser-blue"></i>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-700 mt-3">
+                        This tour requires a moderate level of fitness. We'll be hiking 2-5 miles per day on uneven terrain at elevations of 7,000-8,000 feet. Participants should be comfortable walking for 2-3 hours at a time. The kayaking activity is suitable for beginners.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center cursor-pointer faq-question">
+                    <h3 class="font-bold text-lg text-yellowstone-blue">
+                        What should I pack for this tour?
+                    </h3>
+                    <i class="fas fa-chevron-down text-geyser-blue"></i>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-700 mt-3">
+                        We recommend layered clothing for variable weather conditions, sturdy hiking shoes, rain gear, sun protection (hat, sunglasses, sunscreen), a reusable water bottle, binoculars for wildlife viewing, and a camera. A detailed packing list will be provided upon booking.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center cursor-pointer faq-question">
+                    <h3 class="font-bold text-lg text-yellowstone-blue">
+                        What is the cancellation policy?
+                    </h3>
+                    <i class="fas fa-chevron-down text-geyser-blue"></i>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-700 mt-3">
+                        You can cancel your booking up to 30 days before departure for a full refund. Cancellations 15-29 days before departure receive a 50% refund. Cancellations within 14 days of departure are non-refundable. We strongly recommend purchasing travel insurance.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center cursor-pointer faq-question">
+                    <h3 class="font-bold text-lg text-yellowstone-blue">
+                        What wildlife might we see?
+                    </h3>
+                    <i class="fas fa-chevron-down text-geyser-blue"></i>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-700 mt-3">
+                        Yellowstone is home to diverse wildlife including bison, elk, moose, bears (black and grizzly), wolves, coyotes, foxes, eagles, and more. While sightings can't be guaranteed, our expert guides know the best locations and times for wildlife viewing.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center cursor-pointer faq-question">
+                    <h3 class="font-bold text-lg text-yellowstone-blue">
+                        How far in advance should I book?
+                    </h3>
+                    <i class="fas fa-chevron-down text-geyser-blue"></i>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-700 mt-3">
+                        We recommend booking at least 3-6 months in advance, especially for summer departures. Popular dates often fill up quickly. Last-minute bookings may be available, but we can't guarantee space.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-yellowstone-blue text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div>
+              <div class="flex items-center space-x-2 mb-6">
+                <div
+                  class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center"
+                >
+                  <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold">
+                  Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+                </span>
+              </div>
+              <p class="text-geyser-blue mb-6">
+                Guiding authentic adventures in America's most spectacular
+                wilderness areas since 1995.
+              </p>
+              <div class="flex space-x-4">
+                <div
+                  class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+                >
+                  <i class="fab fa-facebook-f"></i>
+                </div>
+                <div
+                  class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+                >
+                  <i class="fab fa-instagram"></i>
+                </div>
+                <div
+                  class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+                >
+                  <i class="fab fa-twitter"></i>
+                </div>
+                <div
+                  class="w-10 h-10 rounded-full bg-geyser-blue flex items-center justify-center"
+                >
+                  <i class="fab fa-youtube"></i>
+                </div>
+              </div>
+            </div>
+  
+            <div>
+              <h4 class="text-lg font-bold mb-6">Destinations</h4>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Yellowstone National Park</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Grand Teton National Park</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Glacier National Park</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Rocky Mountains</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Grand Canyon</a
+                  >
+                </li>
+              </ul>
+            </div>
+  
+            <div>
+              <h4 class="text-lg font-bold mb-6">Adventure Types</h4>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Hiking Expeditions</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Horseback Riding</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Wildlife Safaris</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Photography Tours</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-geyser-blue hover:text-hotspring-yellow transition"
+                    >Winter Adventures</a
+                  >
+                </li>
+              </ul>
+            </div>
+  
+            <div>
+              <h4 class="text-lg font-bold mb-6">Contact Us</h4>
+              <ul class="space-y-4 text-geyser-blue">
+                <li class="flex items-start">
+                  <i
+                    class="fas fa-map-marker-alt mt-1 mr-3 text-hotspring-yellow"
+                  ></i>
+                  <span>123 Adventure Way, Jackson, WY 83001</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-phone mt-1 mr-3 text-hotspring-yellow"></i>
+                  <span>(307) 555-1234</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-envelope mt-1 mr-3 text-hotspring-yellow"></i>
+                  <span>info@yellowstoneadventures.com</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-clock mt-1 mr-3 text-hotspring-yellow"></i>
+                  <span>Mon-Fri: 9AM-6PM | Sat: 10AM-4PM</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+  
+          <div
+            class="pt-8 border-t border-geyser-blue border-opacity-20 text-center text-geyser-blue text-sm"
+          >
+            <p>
+              &copy; 2023 Yellowstone Adventures. All rights reserved. Experience
+              the spirit of America.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+        
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener("scroll", () => {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("nav-scrolled");
+                navbar.classList.add("py-3");
+                navbar.classList.remove("py-4");
+            } else {
+                navbar.classList.remove("nav-scrolled");
+                navbar.classList.remove("py-3");
+                navbar.classList.add("py-4");
+            }
+        });
+        
+        // Initialize the navbar state
+        window.dispatchEvent(new Event("scroll"));
+        
+        // FAQ Toggle Functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.parentNode.querySelector('.faq-answer');
+                const icon = question.querySelector('i');
+                
+                answer.classList.toggle('open');
+                if (answer.classList.contains('open')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+        
+        // PDF Export Functionality
+        document.getElementById('pdfButton').addEventListener('click', () => {
+            const element = document.getElementById('pdfContent') || document.body;
+            const opt = {
+                margin: 10,
+                filename: 'Yellowstone_Explorer_Tour.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Show loading indicator
+            const originalText = document.getElementById('pdfButton').innerHTML;
+            document.getElementById('pdfButton').innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating PDF...';
+            
+            // Generate and download PDF
+            setTimeout(() => {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Restore original button text
+                    document.getElementById('pdfButton').innerHTML = originalText;
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
