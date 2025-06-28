@@ -34,56 +34,88 @@
     </script>
     <style>
       .navbar {
-          transition: all 0.4s ease;
-          backdrop-filter: blur(10px);
-          color: aliceblue !important;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(10px);
+        color: aliceblue !important;
       }
       .nav-scrolled {
-          background: rgba(73, 113, 165, 0.95);
-          backdrop-filter: blur(10px);
-          color: aliceblue !important;
+        background: rgba(73, 113, 165, 0.95);
+        backdrop-filter: blur(10px);
+        color: aliceblue !important;
       }
       .hero-image {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-              url('1491581132559.jpeg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+          url("geyser-yelowstone-burst_h.avif");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
 
-.testimonial-bg {
-  background: linear-gradient(rgba(30, 58, 95, 0.85), rgba(30, 58, 95, 0.85)),
-              url('images.jpeg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
+      .testimonial-bg {
+        background: linear-gradient(
+            rgba(30, 58, 95, 0.85),
+            rgba(30, 58, 95, 0.85)
+          ),
+          url("geyser-yelowstone-burst_h.avif");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
 
       .card-hover {
-          transition: all 0.3s ease;
+        transition: all 0.3s ease;
       }
       .card-hover:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       }
       .feature-icon {
-          transition: all 0.3s ease;
+        transition: all 0.3s ease;
       }
       .feature-card:hover .feature-icon {
-          transform: scale(1.2);
-          color: #f9a825;
+        transform: scale(1.2);
+        color: #f9a825;
       }
       .animate-float {
-          animation: float 6s ease-in-out infinite;
+        animation: float 6s ease-in-out infinite;
       }
       @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-          100% { transform: translateY(0px); }
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
       }
       .parallax {
-          background-attachment: fixed;
+        background-attachment: fixed;
+      }
+
+      /* Mobile menu styles */
+      .mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .mobile-menu.active {
+        transform: translateX(0);
+      }
+      .mobile-menu-overlay {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .mobile-menu-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .tour-image {
+        height: 100%;
+        min-height: 200px;
+        object-fit: cover;
       }
     </style>
   </head>
@@ -98,24 +130,19 @@
             <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
           </div>
           <span class="text-2xl font-bold text-yellowstone-blue">
-            Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+            EverWild<span class="text-hotspring-yellow">Expeditions</span>
           </span>
         </div>
 
+        <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-8">
-          <a
-            href="#"
-            class="font-semibold hover:text-geyser-blue transition"
+          <a href="#" class="font-semibold hover:text-geyser-blue transition"
             >Home</a
           >
-          <a
-            href="#"
-            class=" font-semibold hover:text-geyser-blue transition"
+          <a href="#" class="font-semibold hover:text-geyser-blue transition"
             >Tours</a
           >
-          <a
-            href="#"
-            class=" font-semibold hover:text-geyser-blue transition"
+          <a href="#" class="font-semibold hover:text-geyser-blue transition"
             >Destinations</a
           >
           <a
@@ -123,9 +150,7 @@
             class="font-semibold hover:text-geyser-blue transition"
             >About</a
           >
-          <a
-            href="#"
-            class=" font-semibold hover:text-geyser-blue transition"
+          <a href="#" class="font-semibold hover:text-geyser-blue transition"
             >Contact</a
           >
         </div>
@@ -133,16 +158,68 @@
         <div class="flex items-center space-x-4">
           <button
             class="hidden md:block bg-hotspring-yellow text-yellowstone-blue font-bold py-2 px-6 rounded-full hover:bg-canyon-orange transition"
-        
-            >
+          >
             Book Now
           </button>
-          <button class="md:hidden text-yellowstone-blue">
-            <i href="tourDetails.html" class="fas fa-bars text-2xl"></i>
+          <button id="menu-toggle" class="md:hidden text-yellowstone-blue">
+            <i class="fas fa-bars text-2xl"></i>
           </button>
         </div>
       </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu-overlay"
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-70 z-40"
+    ></div>
+    <div
+      id="mobile-menu"
+      class="mobile-menu fixed top-0 right-0 w-64 h-full bg-yellowstone-blue z-50 p-6"
+    >
+      <div class="flex justify-end mb-10">
+        <button id="menu-close" class="text-white">
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+      </div>
+      <div class="flex flex-col space-y-6">
+        <a
+          href="#"
+          class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+          >Home</a
+        >
+        <a
+          href="#"
+          class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+          >Tours</a
+        >
+        <a
+          href="#"
+          class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+          >Destinations</a
+        >
+        <a
+          href="about.html"
+          class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+          >About</a
+        >
+        <a
+          href="#"
+          class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+          >Contact</a
+        >
+        <button
+          class="bg-hotspring-yellow text-yellowstone-blue font-bold py-3 px-6 rounded-full mt-4"
+        >
+          Book Now
+        </button>
+      </div>
+      <div
+        class="absolute bottom-6 left-0 right-0 px-6 text-center text-geyser-blue"
+      >
+        <p>© 2023 EverWild Expeditions</p>
+      </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero-image pt-32 pb-24 md:pt-48 md:pb-36">
@@ -181,7 +258,7 @@
           <h2
             class="font-playfair text-3xl md:text-4xl font-bold text-yellowstone-blue mb-4"
           >
-            Why Choose Yellowstone Adventures
+            Why Choose EverWild Expeditions
           </h2>
           <div class="w-24 h-1 bg-hotspring-yellow mx-auto"></div>
         </div>
@@ -264,9 +341,9 @@
             <div class="md:flex">
               <div class="md:w-2/5 relative">
                 <img
-                  src="images (1).jpeg"
+                  src="3BDB6CEE-A2C6-7E3A-4BA2060C52F470A6-large.jpg"
                   alt="Yellowstone"
-                  class="w-full h-64 md:h-full object-cover"
+                  class="tour-image w-full"
                 />
                 <div
                   class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
@@ -309,7 +386,7 @@
                 <button
                   class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
                 >
-             <a href="tourDetails.html"> Book This Tour</a>    
+               <a href="tourDetails.html">Book This Tour   </a>   
                 </button>
               </div>
             </div>
@@ -321,9 +398,9 @@
             <div class="md:flex">
               <div class="md:w-2/5 relative">
                 <img
-                  src="/Tour/2.jpeg"
+                  src="a.jpg"
                   alt="Grand Teton"
-                  class="w-full h-64 md:h-full object-cover"
+                  class="tour-image w-full"
                 />
                 <div
                   class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
@@ -366,7 +443,7 @@
                 <button
                   class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
                 >
-                <a href="tourDetails.html"> Book This Tour</a>    
+                  <a href="tourDetails.html">Book This Tour</a>   
                 </button>
               </div>
             </div>
@@ -378,9 +455,9 @@
             <div class="md:flex">
               <div class="md:w-2/5 relative">
                 <img
-                  src="/Tour/Yellowstone-Norris-Geyser-Basin-min-1024x683.jpg"
+                  src="geyser-yelowstone-burst_h.avif"
                   alt="Rocky Mountains"
-                  class="w-full h-64 md:h-full object-cover"
+                  class="tour-image w-full"
                 />
                 <div
                   class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
@@ -423,7 +500,7 @@
                 <button
                   class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
                 >
-                <a href="tourDetails.html"> Book This Tour</a>  
+                  <a href="tourDetails.html">Book This Tour</a>   
                 </button>
               </div>
             </div>
@@ -437,7 +514,7 @@
                 <img
                   src="images (2).jpeg"
                   alt="Cowboy"
-                  class="w-full h-64 md:h-full object-cover"
+                  class="tour-image w-full"
                 />
                 <div
                   class="absolute top-4 right-4 bg-hotspring-yellow text-yellowstone-blue font-bold py-1 px-4 rounded-full"
@@ -480,7 +557,7 @@
                 <button
                   class="w-full bg-yellowstone-blue text-white py-3 rounded-lg font-bold hover:bg-geyser-blue transition"
                 >
-                <a href="tourDetails.html"> Book This Tour</a>  
+                  <a href="tourDetails.html">Book This Tour</a>   
                 </button>
               </div>
             </div>
@@ -624,7 +701,7 @@
           <div
             class="md:w-2/5 bg-cover bg-center hidden md:block parallax"
             style="
-              background-image: url('Yellowstone-Norris-Geyser-Basin-min-1024x683.jpg');
+              background-image: url('3BDB6CEE-A2C6-7E3A-4BA2060C52F470A6-large.jpg');
             "
           ></div>
           <div class="md:w-3/5 p-10 text-center">
@@ -690,7 +767,7 @@
                 <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
               </div>
               <span class="text-2xl font-bold">
-                Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+               EverWild<span class="text-hotspring-yellow">Expeditions</span>
               </span>
             </div>
             <p class="text-geyser-blue mb-6">
@@ -832,7 +909,7 @@
           class="pt-8 border-t border-geyser-blue border-opacity-20 text-center text-geyser-blue text-sm"
         >
           <p>
-            &copy; 2023 Yellowstone Adventures. All rights reserved. Experience
+            &copy; 2023 EverWild Expeditions. All rights reserved. Experience
             the spirit of America.
           </p>
         </div>
@@ -852,6 +929,30 @@
           navbar.classList.remove("py-3");
           navbar.classList.add("py-4");
         }
+      });
+
+      // Mobile menu functionality
+      const menuToggle = document.getElementById("menu-toggle");
+      const menuClose = document.getElementById("menu-close");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.add("active");
+        mobileMenuOverlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+      });
+
+      menuClose.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+        mobileMenuOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+
+      mobileMenuOverlay.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+        mobileMenuOverlay.classList.remove("active");
+        document.body.style.overflow = "";
       });
 
       // Initialize the navbar state
