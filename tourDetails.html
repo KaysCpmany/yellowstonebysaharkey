@@ -28,14 +28,16 @@
         };
     </script>
     <style>
-        .navbar {
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            background: aliceblue !important;
-        }
-        .nav-scrolled {
-            backdrop-filter: blur(10px);
-        }
+         .navbar {
+        transition: all 0.4s ease;
+        backdrop-filter: blur(10px);
+        color: aliceblue !important;
+      }
+      .nav-scrolled {
+        background: rgba(73, 113, 165, 0.95);
+        backdrop-filter: blur(10px);
+        color: aliceblue !important;
+      }
         .hero-pattern {
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48cGF0aCBmaWxsPSIjMWUzYTVmIiBvcGFjaXR5PSIwLjAzIiBkPSJNMzAgMTVjOC4yODQgMCAxNSA2LjcxNiAxNSAxNXMtNi43MTYgMTUtMTUgMTUtMTUtNi43MTYtMTUtMTUgNi43MTYtMTUgMTUtMTVtMC0xNUMxMy40MzMgMCAwIDEzLjQzMyAwIDMwczEzLjQzMyAzMCAzMCAzMCAzMC0xMy40MzMgMzAtMzAtMTMuNDMzLTMwLTMwLTMweiIvPjwvc3ZnPg==');
         }
@@ -105,63 +107,107 @@
 </head>
 <body class="font-raleway bg-gray-50">
     <!-- Navigation -->
-    <nav class="navbar fixed w-full z-50 py-4 px-4 md:px-8">
+     <!-- Navigation -->
+     <nav class="navbar fixed w-full z-50 py-4 px-4 md:px-8">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center">
-                    <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
-                </div>
-                <span class="text-2xl font-bold text-yellowstone-blue">
-                    Yellowstone<span class="text-hotspring-yellow">Adventures</span>
-                </span>
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center"
+            >
+              <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
             </div>
-
-            <div class="hidden md:flex space-x-8">
-                <a href="tour.html" class="font-semibold hover:text-geyser-blue transition">Home</a>
-                <a href="#" class="font-semibold hover:text-geyser-blue transition">Tours</a>
-                <a href="#" class="font-semibold hover:text-geyser-blue transition">Destinations</a>
-                <a href="#" class="font-semibold hover:text-geyser-blue transition">About</a>
-                <a href="#" class="font-semibold hover:text-geyser-blue transition">Contact</a>
-            </div>
-
-            <div class="flex items-center space-x-4">
-                <button class="hidden md:block bg-hotspring-yellow text-yellowstone-blue font-bold py-2 px-6 rounded-full hover:bg-canyon-orange transition">
-                    Book Now
-                </button>
-                <button id="mobileMenuButton" class="md:hidden text-yellowstone-blue">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-40 bg-yellowstone-blue text-white md:hidden">
-        <div class="flex justify-between items-center p-6 border-b border-geyser-blue border-opacity-20">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 rounded-full bg-hotspring-yellow flex items-center justify-center">
-                    <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
-                </div>
-                <span class="text-2xl font-bold">
-                    Yellowstone<span class="text-hotspring-yellow">Adventures</span>
-                </span>
-            </div>
-            <button id="closeMobileMenu" class="text-white">
-                <i class="fas fa-times text-2xl"></i>
+            <span class="text-2xl font-bold text-yellowstone-blue">
+             EverWild<span class="text-hotspring-yellow">Expeditions</span>
+            </span>
+          </div>
+  
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex space-x-8">
+            <a href="#" class="font-semibold hover:text-geyser-blue transition"
+              >Home</a
+            >
+            <a href="#" class="font-semibold hover:text-geyser-blue transition"
+              >Tours</a
+            >
+            <a href="#" class="font-semibold hover:text-geyser-blue transition"
+              >Destinations</a
+            >
+            <a
+              href="about.html"
+              class="font-semibold hover:text-geyser-blue transition"
+              >About</a
+            >
+            <a href="#" class="font-semibold hover:text-geyser-blue transition"
+              >Contact</a
+            >
+          </div>
+  
+          <div class="flex items-center space-x-4">
+            <button
+              class="hidden md:block bg-hotspring-yellow text-yellowstone-blue font-bold py-2 px-6 rounded-full hover:bg-canyon-orange transition"
+            >
+              Book Now
             </button>
-        </div>
-        <div class="p-6 space-y-6">
-            <a href="tour.html" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Home</a>
-            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Tours</a>
-            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Destinations</a>
-            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">About</a>
-            <a href="#" class="block text-xl font-semibold py-3 border-b border-geyser-blue border-opacity-20">Contact</a>
-            <button class="w-full bg-hotspring-yellow text-yellowstone-blue font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition mt-4">
-                Book Now
+            <button id="menu-toggle" class="md:hidden text-yellowstone-blue">
+              <i class="fas fa-bars text-2xl"></i>
             </button>
+          </div>
         </div>
-    </div>
-
+      </nav>
+  
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu-overlay"
+        class="mobile-menu-overlay fixed inset-0  bg-opacity-70 z-40"
+      ></div>
+      <div
+        id="mobile-menu"
+        class="mobile-menu fixed top-0 right-0 w-64 h-full bg-yellowstone-blue z-50 p-6"
+      >
+        <div class="flex justify-end mb-10">
+          <button id="menu-close" class="text-white">
+            <i class="fas fa-times text-2xl"></i>
+          </button>
+        </div>
+        <div class="flex flex-col space-y-6">
+          <a
+            href="#"
+            class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+            >Tours</a
+          >
+          <a
+            href="#"
+            class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+            >Destinations</a
+          >
+          <a
+            href="about.html"
+            class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+            >About</a
+          >
+          <a
+            href="#"
+            class="text-white text-xl font-semibold hover:text-hotspring-yellow"
+            >Contact</a
+          >
+          <button
+            class="bg-hotspring-yellow text-yellowstone-blue font-bold py-3 px-6 rounded-full mt-4"
+          >
+            Book Now
+          </button>
+        </div>
+        <div
+          class="absolute bottom-6 left-0 right-0 px-6 text-center text-geyser-blue"
+        >
+          <p>© 2023 EverWild Expeditions</p>
+        </div>
+      </div>
+  
     <!-- Hero Section -->
     <div class="relative bg-yellowstone-blue">
         <div class="absolute inset-0 hero-pattern opacity-10"></div>
@@ -202,7 +248,7 @@
                 </div>
                 <div class="md:w-1/2">
                     <div class="rounded-2xl overflow-hidden shadow-2xl">
-                        <img src="images (2).jpeg" alt="Yellowstone" class="w-full h-96 object-cover">
+                        <img src="ama.jpg" alt="Yellowstone" class="w-full h-96 object-cover">
                     </div>
                 </div>
             </div>
@@ -506,164 +552,164 @@
                     </p>
                 </div>
                 
-                <!-- Included/Excluded -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
-                    <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue mb-4">
-                        What's Included
-                    </h3>
-                    <ul class="space-y-2 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
-                            <span class="text-gray-700">4 nights lodge accommodation</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
-                            <span class="text-gray-700">All meals as per itinerary</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
-                            <span class="text-gray-700">Expert naturalist guide</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
-                            <span class="text-gray-700">All park entrance fees</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
-                            <span class="text-gray-700">Transportation in comfortable van</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
-                            <span class="text-gray-700">Kayak rental and safety gear</span>
-                        </li>
-                    </ul>
-                    
-                    <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue mb-4">
-                        Not Included
-                    </h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
-                            <span class="text-gray-700">Flights to/from Yellowstone</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
-                            <span class="text-gray-700">Travel insurance</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
-                            <span class="text-gray-700">Alcoholic beverages</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
-                            <span class="text-gray-700">Guide gratuities</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Enhanced Testimonial Section -->
-                <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue">
-                            Traveler Reviews
-                        </h3>
-                        <div class="flex items-center">
-                            <div class="text-hotspring-yellow text-xl mr-2">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="font-bold">4.9</span>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <!-- Review 1 -->
-                        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-geyser-blue to-yellowstone-blue">
-                                    SJ
-                                </div>
-                                <div class="ml-3">
-                                    <h4 class="font-bold text-lg">Sarah Johnson</h4>
-                                    <div class="flex items-center">
-                                        <div class="text-hotspring-yellow mr-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="text-gray-500 text-sm">Jun 12, 2025</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-gray-600">
-                                "This tour exceeded all expectations! Our guide Mark was incredibly knowledgeable and made the experience unforgettable. We saw bears, wolves, and countless bison. The kayaking on Yellowstone Lake was a highlight."
-                            </p>
-                        </div>
-                        
-                        <!-- Review 2 -->
-                        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-hotspring-yellow to-canyon-orange">
-                                    MT
-                                </div>
-                                <div class="ml-3">
-                                    <h4 class="font-bold text-lg">Michael Thompson</h4>
-                                    <div class="flex items-center">
-                                        <div class="text-hotspring-yellow mr-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="text-gray-500 text-sm">May 28, 2025</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-gray-600">
-                                "Perfect balance of activity and relaxation. The itinerary was well-planned, and the accommodations were comfortable. Seeing Old Faithful erupt at sunset was magical. Highly recommend this tour!"
-                            </p>
-                        </div>
-                        
-                        <!-- Review 3 -->
-                        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-pine-green to-geyser-blue">
-                                    ER
-                                </div>
-                                <div class="ml-3">
-                                    <h4 class="font-bold text-lg">Emily Rodriguez</h4>
-                                    <div class="flex items-center">
-                                        <div class="text-hotspring-yellow mr-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="text-gray-500 text-sm">May 15, 2025</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-gray-600">
-                                "The wildlife viewing in Lamar Valley was incredible! We saw a pack of wolves hunting at dawn. The group size was perfect - small enough to feel personal but big enough to make friends. Will definitely book again!"
-                            </p>
-                        </div>
-                        
-                        <a href="#" class="inline-flex items-center justify-center w-full bg-geyser-blue text-white font-bold py-3 px-8 rounded-lg hover:bg-yellowstone-blue transition">
-                            View All 128 Reviews <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+              
             </div>
         </div>
     </div>
+  <!-- Included/Excluded -->
+  <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+    <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue mb-4">
+        What's Included
+    </h3>
+    <ul class="space-y-2 mb-6">
+        <li class="flex items-start">
+            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+            <span class="text-gray-700">4 nights lodge accommodation</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+            <span class="text-gray-700">All meals as per itinerary</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+            <span class="text-gray-700">Expert naturalist guide</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+            <span class="text-gray-700">All park entrance fees</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+            <span class="text-gray-700">Transportation in comfortable van</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-check text-pine-green mt-1 mr-2"></i>
+            <span class="text-gray-700">Kayak rental and safety gear</span>
+        </li>
+    </ul>
+    
+    <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue mb-4">
+        Not Included
+    </h3>
+    <ul class="space-y-2">
+        <li class="flex items-start">
+            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+            <span class="text-gray-700">Flights to/from Yellowstone</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+            <span class="text-gray-700">Travel insurance</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+            <span class="text-gray-700">Alcoholic beverages</span>
+        </li>
+        <li class="flex items-start">
+            <i class="fas fa-times text-canyon-orange mt-1 mr-2"></i>
+            <span class="text-gray-700">Guide gratuities</span>
+        </li>
+    </ul>
+</div>
 
+<!-- Enhanced Testimonial Section -->
+<div class="bg-white rounded-2xl shadow-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h3 class="font-playfair text-2xl font-bold text-yellowstone-blue">
+            Traveler Reviews
+        </h3>
+        <div class="flex items-center">
+            <div class="text-hotspring-yellow text-xl mr-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <span class="font-bold">4.9</span>
+        </div>
+    </div>
+    
+    <div class="space-y-6">
+        <!-- Review 1 -->
+        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-geyser-blue to-yellowstone-blue">
+                    SJ
+                </div>
+                <div class="ml-3">
+                    <h4 class="font-bold text-lg">Sarah Johnson</h4>
+                    <div class="flex items-center">
+                        <div class="text-hotspring-yellow mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-500 text-sm">Jun 12, 2025</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-gray-600">
+                "This tour exceeded all expectations! Our guide Mark was incredibly knowledgeable and made the experience unforgettable. We saw bears, wolves, and countless bison. The kayaking on Yellowstone Lake was a highlight."
+            </p>
+        </div>
+        
+        <!-- Review 2 -->
+        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-hotspring-yellow to-canyon-orange">
+                    MT
+                </div>
+                <div class="ml-3">
+                    <h4 class="font-bold text-lg">Michael Thompson</h4>
+                    <div class="flex items-center">
+                        <div class="text-hotspring-yellow mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-500 text-sm">May 28, 2025</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-gray-600">
+                "Perfect balance of activity and relaxation. The itinerary was well-planned, and the accommodations were comfortable. Seeing Old Faithful erupt at sunset was magical. Highly recommend this tour!"
+            </p>
+        </div>
+        
+        <!-- Review 3 -->
+        <div class="review-card bg-gray-50 p-5 rounded-xl border border-gray-100">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white bg-gradient-to-r from-pine-green to-geyser-blue">
+                    ER
+                </div>
+                <div class="ml-3">
+                    <h4 class="font-bold text-lg">Emily Rodriguez</h4>
+                    <div class="flex items-center">
+                        <div class="text-hotspring-yellow mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-500 text-sm">May 15, 2025</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-gray-600">
+                "The wildlife viewing in Lamar Valley was incredible! We saw a pack of wolves hunting at dawn. The group size was perfect - small enough to feel personal but big enough to make friends. Will definitely book again!"
+            </p>
+        </div>
+        
+        <a href="#" class="inline-flex items-center justify-center w-full bg-geyser-blue text-white font-bold py-3 px-8 rounded-lg hover:bg-yellowstone-blue transition">
+            View All 128 Reviews <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+</div>
     <!-- FAQ Section -->
     <div class="max-w-4xl mx-auto px-4 md:px-8 py-16">
         <h2 class="font-playfair text-3xl font-bold text-yellowstone-blue mb-2 text-center">
@@ -758,7 +804,7 @@
                   <i class="fas fa-mountain text-yellowstone-blue text-xl"></i>
                 </div>
                 <span class="text-2xl font-bold">
-                  Yellowstone<span class="text-hotspring-yellow">Adventures</span>
+                 EverWild<span class="text-hotspring-yellow">Expeditions</span>
                 </span>
               </div>
               <p class="text-geyser-blue mb-6">
@@ -900,7 +946,7 @@
             class="pt-8 border-t border-geyser-blue border-opacity-20 text-center text-geyser-blue text-sm"
           >
             <p>
-              &copy; 2023 Yellowstone Adventures. All rights reserved. Experience
+              &copy; 2023 EverWild Expeditions. All rights reserved. Experience
               the spirit of America.
             </p>
           </div>
@@ -908,36 +954,7 @@
       </footer>
 
     <script>
-        // Mobile Menu Functionality
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.add('open');
-        });
-        
-        closeMobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-        });
-        
-        // Navbar scroll effect
-        window.addEventListener("scroll", () => {
-            const navbar = document.querySelector(".navbar");
-            if (window.scrollY > 50) {
-                navbar.classList.add("nav-scrolled");
-                navbar.classList.add("py-3");
-                navbar.classList.remove("py-4");
-            } else {
-                navbar.classList.remove("nav-scrolled");
-                navbar.classList.remove("py-3");
-                navbar.classList.add("py-4");
-            }
-        });
-        
-        // Initialize the navbar state
-        window.dispatchEvent(new Event("scroll"));
-        
+
         // FAQ Toggle Functionality
         const faqQuestions = document.querySelectorAll('.faq-question');
         faqQuestions.forEach(question => {
@@ -979,6 +996,47 @@
                 });
             }, 1000);
         });
+
+         // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("nav-scrolled");
+          navbar.classList.add("py-3");
+          navbar.classList.remove("py-4");
+        } else {
+          navbar.classList.remove("nav-scrolled");
+          navbar.classList.remove("py-3");
+          navbar.classList.add("py-4");
+        }
+      });
+
+      // Mobile menu functionality
+      const menuToggle = document.getElementById("menu-toggle");
+      const menuClose = document.getElementById("menu-close");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.add("active");
+        mobileMenuOverlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+      });
+
+      menuClose.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+        mobileMenuOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+
+      mobileMenuOverlay.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+        mobileMenuOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+
+      // Initialize the navbar state
+      window.dispatchEvent(new Event("scroll"));
     </script>
 </body>
 </html>
